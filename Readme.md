@@ -1,0 +1,1 @@
+Este repositório tem como finalidade armazenar o projeto de um sistema de caixa de supermercado.
