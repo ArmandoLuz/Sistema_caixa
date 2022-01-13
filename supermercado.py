@@ -551,7 +551,7 @@ class Supermercado:
 
         root3.focus_force()
         root3.grab_set()
-
+    #Exibe a lista de funcionários
     def exibir_lista_funcionarios(self, root):
         root3 = Toplevel(root)
         root3.title("Litsa de funcionários")
