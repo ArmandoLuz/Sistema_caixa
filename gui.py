@@ -83,7 +83,7 @@ class aplicacao:
         self.btAqe.pack(side=LEFT, padx=20)
 
         #Declaração dos botões do sexto conteiner
-        self.btElc = Button(self.sextoConteiner, text="Exibir lista de clientes", font=self.fonteButtonPadrao, width=25, command=self.sp.exibir_lista_clientes)
+        self.btElc = Button(self.sextoConteiner, text="Exibir lista de clientes", font=self.fonteButtonPadrao, width=25, command=lambda: self.sp.exibir_lista_clientes(root))
         self.btElc.pack(side=LEFT, padx=20)
 
         self.btEic = Button(self.sextoConteiner, text="Exibir itens do carrinho", font=self.fonteButtonPadrao, width=25, command=self.sp.exibir_itens_carrinho)
