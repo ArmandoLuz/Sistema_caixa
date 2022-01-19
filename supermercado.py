@@ -554,7 +554,7 @@ class Supermercado:
     #Exibe a lista de funcionários
     def exibir_lista_funcionarios(self, root):
         root3 = Toplevel(root)
-        root3.title("Litsa de funcionários")
+        root3.title("Lista de funcionários")
         root3.geometry("500x300")
         root3.resizable(False, False)
 
@@ -575,10 +575,30 @@ class Supermercado:
             count+=1
             lista.insert("end", str(count) + "-" + self._lista_funcionario[i]._nome)
         root3.mainloop()
+    #Exibe a lista de clientes
+    def exibir_lista_clientes(self, root):
+        root3 = Toplevel(root)
+        root3.title("Lista de clientes")
+        root3.geometry("500x300")
+        root3.resizable(False, False)
 
-    def exibir_lista_clientes(self):
+        #Definição do listbox
+        lista = Listbox(root3)
+        lista.pack(side=LEFT, fill=BOTH, expand=1)
+
+        #Definição da barra de rolagem
+        scroll = Scrollbar(root3, orient=VERTICAL, command=lista.yview)
+        scroll.pack(side=LEFT, fill=BOTH)
+
+        #Configurando a barra de rolagem
+        lista["yscrollcommand"] = scroll.set
+
+        count = 0
+
         for i in self._lista_cliente.keys():
-            print(self._lista_cliente[i]._nome)
+            count+=1
+            lista.insert("end", str(count) + "-" + self._lista_cliente[i]._nome)
+        root3.mainloop()
 
     def exibir_itens_carrinho(self):
         cpf = input("Insira o CPF do cliente: ")
