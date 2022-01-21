@@ -599,15 +599,35 @@ class Supermercado:
             count+=1
             lista.insert("end", str(count) + "-" + self._lista_cliente[i]._nome)
         root3.mainloop()
-
-    def exibir_itens_carrinho(self):
-        cpf = input("Insira o CPF do cliente: ")
+    #Exibe os itens de um carrinho de compras
+    def exibir_itens_carrinho(self, root, root2, Cpf):
+        cpf = Cpf
 
         if cpf not in self._lista_carrinho.keys():
-            print("O cliente não possui carrinho de compras.")
+            root3 = Toplevel(root)
+            root3.title("Alerta")
+            root3.geometry("300x80")
+            root3.resizable(False, False)
+
+            #Fecha a janela de inserção do CPF
+            root2.destroy()
+
+            #Definição dos conteiners de alerta do cpf do cliente
+            primeirConteinerAle = Frame(root3)
+            primeirConteinerAle.pack()
+
+            segundConteinerAle = Frame(root3)
+            segundConteinerAle.pack()
+
+            #Definição dos textos, campos e botões
+            msgLabel = Label(primeirConteinerAle, font=("Arial", 10, "bold"))
+            msgLabel["text"] = "O cliente não possui carrinho de compras."
+            msgLabel.pack(pady=10)
+            btClose = Button(segundConteinerAle, text="OK", width=25, command=root3.destroy)
+            btClose.pack()
             return 0
         
-        self._lista_carrinho[cpf].exibir_produtos()
+        self._lista_carrinho[cpf].exibir_produtos(root, root2)
     
     def remover_produto_carrinho(self):
         cpf = input("Insira o CPF do cliente: ")
