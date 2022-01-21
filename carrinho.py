@@ -102,12 +102,34 @@ class Carrinho:
 
             root3.focus_force()
             root3.grab_set()
+    #Exibe os produtos do carrinho
+    def exibir_produtos(self, root, root2):
+        root4 = Toplevel(root)
+        root4.title("Produtos do carrinho")
+        root4.geometry("500x300")
+        root4.resizable(False, False)
 
-    def exibir_produtos(self):
+        root2.destroy()
+
+        #Definição do listbox
+        lista = Listbox(root4)
+        lista.pack(side=LEFT, fill=BOTH, expand=1)
+
+        #Definição da barra de rolagem
+        scroll = Scrollbar(root4, orient=VERTICAL, command=lista.yview)
+        scroll.pack(side=LEFT, fill=BOTH)
+
+        #Configurando a barra de rolagem
+        lista["yscrollcommand"] = scroll.set
+
+        count = 0
+
         for i in self._produtos.keys():
-            print(self._quant_carrinho[i], self._produtos[i]._nome)
-        
-        print("Total:", self._preco_total)
-    
+            count+=1
+            lista.insert("end", str(count) + " - " + str(self._quant_carrinho[i]) + " " + self._produtos[i]._nome)
+
+        lista.insert("end", "Total: " + str(self._preco_total))
+
+        root4.mainloop()
 
 
