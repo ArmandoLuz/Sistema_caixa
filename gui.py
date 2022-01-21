@@ -1,4 +1,5 @@
 from tkinter import *
+from tokenize import String
 from typing import Sized
 from supermercado import Supermercado
 
@@ -86,7 +87,7 @@ class aplicacao:
         self.btElc = Button(self.sextoConteiner, text="Exibir lista de clientes", font=self.fonteButtonPadrao, width=25, command=lambda: self.sp.exibir_lista_clientes(root))
         self.btElc.pack(side=LEFT, padx=20)
 
-        self.btEic = Button(self.sextoConteiner, text="Exibir itens do carrinho", font=self.fonteButtonPadrao, width=25, command=self.sp.exibir_itens_carrinho)
+        self.btEic = Button(self.sextoConteiner, text="Exibir itens do carrinho", font=self.fonteButtonPadrao, width=25, command=self.exibir_itens_carrinho)
         self.btEic.pack(side=LEFT, padx=20)
 
         self.btApe = Button(self.sextoConteiner, text="Atualizar preço do estoque", font=self.fonteButtonPadrao, width=25, command=self.atualiza_preco)
@@ -482,11 +483,35 @@ class aplicacao:
         root2.focus_force()
         root2.grab_set()
         root2.mainloop()
+    #GUI de exibição dos itens de um carrinho
+    def exibir_itens_carrinho(self):
+        root2 = Toplevel(self.root)
+        root2.title("Exibir itens do carrinho")
+        root2.geometry("300x60")
+        root2.resizable(False, False)
+
+        #Definição dos conteiners
+        primeiroConteiner = Frame(root2)
+        primeiroConteiner.pack()
+
+        segundoConteiner = Frame(root2)
+        segundoConteiner.pack()
+
+        #Definição dos campos, botões e textos
+        cpfLabel = Label(primeiroConteiner, text="CPF")
+        cpfLabel.pack(side=LEFT, padx=58)
+
+        cpf = StringVar()
+        cpfEntry = Entry(primeiroConteiner, width=25, textvariable=cpf)
+        cpfEntry.pack(side=LEFT)
+
+        exiButton = Button(segundoConteiner, width=25, text="Exibir", command=lambda: self.sp.exibir_itens_carrinho(self.root, root2, cpf.get()))
+        exiButton.pack(pady=5)
 
 
-
-
-#root root
+        root2.focus_force()
+        root2.grab_set()
+        root2.mainloop()
 
 root = Tk()
 root.title("Sistema de caixa")
