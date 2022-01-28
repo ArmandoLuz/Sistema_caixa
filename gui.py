@@ -97,7 +97,7 @@ class aplicacao:
         self.btIc = Button(self.setimoConteiner, text="Imprimir informações do cliente", font=self.fonteButtonPadrao, width=25, command=self.sp.imprimir_pessoa)
         self.btIc.pack(side=LEFT, padx=20)
 
-        self.btRpc = Button(self.setimoConteiner, text="Remover item do carrinho", font=self.fonteButtonPadrao, width=25, command=self.sp.remover_produto_carrinho)
+        self.btRpc = Button(self.setimoConteiner, text="Remover item do carrinho", font=self.fonteButtonPadrao, width=25, command=self.remover_produto_carrinho)
         self.btRpc.pack(side=LEFT, padx=20)
 
         self.titleAut = Label(self.setimoConteiner, text="Autor: Armando Luz Borges", width=25, font=self.fonteTitlePadrao, anchor=CENTER)
@@ -512,6 +512,35 @@ class aplicacao:
         root2.focus_force()
         root2.grab_set()
         root2.mainloop()
+    #GUI de remoção de um produto de um carrinho
+    def remover_produto_carrinho(self):
+        root2 = Toplevel(self.root)
+        root2.title("Remover produto do carrinho")
+        root2.geometry("300x60")
+        root2.resizable(False, False)
+
+        #Definição dos conteiners
+        primeiroConteiner = Frame(root2)
+        primeiroConteiner.pack()
+
+        segundoConteiner = Frame(root2)
+        segundoConteiner.pack()
+
+        #Definição dos campos, botões e textos
+        cpfLabel = Label(primeiroConteiner, text="CPF")
+        cpfLabel.pack(side=LEFT, padx=58)
+
+        cpf = StringVar()
+        cpfEntry = Entry(primeiroConteiner, width=25, textvariable=cpf)
+        cpfEntry.pack(side=LEFT)
+
+        remButton = Button(segundoConteiner, width=25, text="OK", command=lambda: self.sp.remover_produto_carrinho(self.root, root2, cpf.get()))
+        remButton.pack(pady=5)
+
+        root2.focus_force()
+        root2.grab_set()
+        root2.mainloop()
+
 
 root = Tk()
 root.title("Sistema de caixa")
