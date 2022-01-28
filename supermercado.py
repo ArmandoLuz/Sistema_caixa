@@ -628,15 +628,67 @@ class Supermercado:
             return 0
         
         self._lista_carrinho[cpf].exibir_produtos(root, root2)
-    
-    def remover_produto_carrinho(self):
-        cpf = input("Insira o CPF do cliente: ")
+    #Remove um item do carrinho
+    def remover_produto_carrinho(self, root, root2, Cpf):
+        cpf = Cpf
+
+        root3 = Toplevel(root)
+
+        #Fecha a janela de inserção do CPF
+        root2.destroy()
 
         if cpf not in self._lista_carrinho.keys():
-            print("O cliente não possui um carrinho de compras.")
+            
+            root3.title("Alerta")
+            root3.geometry("300x80")
+            root3.resizable(False, False)
+
+            #Definição dos conteiners
+            primeirConteiner = Frame(root3)
+            segundConteiner = Frame(root3)
+
+            #Definição dos textos, campos e botões
+            msgLabel = Label(primeirConteiner, font=("Arial", 10, "bold"))
+            btClose = Button(segundConteiner, text="OK", width=25, command=root3.destroy)
+
+
+            msgLabel["text"] = "O cliente não possui um carrinho de compras."
+
+            #Exibe a janela de alerta
+            primeirConteiner.pack()
+            segundConteiner.pack()
+
+            msgLabel.pack()  
+            btClose.pack(pady=10)
+
+            root3.focus_force()
+            root3.grab_set()
+            root3.mainloop()
             return 0
 
-        self._lista_carrinho[cpf].remover_produto(self._lista_estoque)
+        root3.title("Remover produto")
+        root3.geometry("300x80")
+        root3.resizable(False, False)
+
+        #Definição dos conteiners
+        primeirConteiner = Frame(root3)
+        primeirConteiner.pack()
+        segundConteiner = Frame(root3)
+        segundConteiner.pack()
+
+        #Definição dos textos, campos e botões
+        msgLabel = Label(primeirConteiner,text= "ID", font=("Arial", 10, "bold"))
+        msgLabel.pack(side=LEFT)
+
+        id = StringVar()
+        idEntry = Entry(primeirConteiner, width=25, textvariable=id)
+        idEntry.pack(side=LEFT)
+        btClose = Button(segundConteiner, text="Remover", width=25, command=lambda: self._lista_carrinho[cpf].remover_produto(self._lista_estoque, root, root3, id.get()))
+        btClose.pack(pady=10)
+
+        root3.focus_force()
+        root3.grab_set()
+        root3.mainloop()
 
     def imprimir_pessoa(self):
         cpf = input("Insira o CPF do cliente: ")
