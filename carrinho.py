@@ -9,21 +9,47 @@ class Carrinho:
         self._preco_total = 0
         self._status = False
 
-    def remover_produto(self, lista_produto):
-        while True:
-            print("Para parar de remover, digite 0")
-            id = int(input("Insira o id do produto: "))
+    #Remove um item do carrinho
+    def remover_produto(self, lista_produto, root, root3, id):
 
-            if id == 0:
-                break
+        root3.destroy()
 
-            if id in self._produtos.keys():
-                lista_produto[id]._quantidade += self._quant_carrinho[id]
-                self._preco_total -= self._produtos[id]._preco * self._quant_carrinho[id]
-                del(self._produtos[id])
-                del(self._quant_carrinho[id])
-            else:
-                print("Item não está no seu carrinho.")
+        id = int(id)
+
+        root4 = Toplevel(root)
+        root4.title("Alerta")
+        root4.geometry("300x80")
+        root4.resizable(False, False)
+
+        #Definição dos conteiners
+        primeirConteiner = Frame(root4)
+        segundConteiner = Frame(root4)
+
+        #Definição dos textos, campos e botões
+        msgLabel = Label(primeirConteiner, font=("Arial", 10, "bold"))
+        btClose = Button(segundConteiner, text="OK", width=25, command=root4.destroy)
+
+        if id in self._produtos.keys():
+            lista_produto[id]._quantidade += self._quant_carrinho[id]
+            self._preco_total -= self._produtos[id]._preco * self._quant_carrinho[id]
+            del(self._produtos[id])
+            del(self._quant_carrinho[id])
+
+            msgLabel["text"] = "Removido com sucesso"
+        else:
+            msgLabel["text"] = "Item não está no seu carrinho."
+
+        #Exibe a janela de alerta
+
+        primeirConteiner.pack()
+        segundConteiner.pack()
+
+        msgLabel.pack()  
+        btClose.pack(pady=10)
+
+        root4.focus_force()
+        root4.grab_set()
+        root4.mainloop()
     #Adicionar produto ao carrinho
     def add_produto(self, lista_produto, root, root2, Id, Quant):
         id = int(Id)
